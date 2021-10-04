@@ -1,5 +1,5 @@
 {
-  "name": "wa-project-teste",
+  "name": "teste-wa-project",
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
@@ -7,13 +7,26 @@
     "serve": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.4.1",
+    "@emotion/styled": "^11.3.0",
+    "@material-ui/core": "^4.12.3",
+    "@material-ui/styles": "^4.11.4",
+    "@mui/material": "^5.0.2",
+    "axios": "^0.22.0",
+    "formik": "^2.2.9",
     "react": "^17.0.0",
-    "react-dom": "^17.0.0"
+    "react-dom": "^17.0.0",
+    "react-router-dom": "^5.3.0",
+    "yup": "^0.32.9"
   },
   "devDependencies": {
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
+    "@types/react-router-dom": "^5.3.0",
     "@vitejs/plugin-react": "^1.0.0",
+    "autoprefixer": "^10.3.6",
+    "postcss": "^8.3.8",
+    "tailwindcss": "^2.2.16",
     "typescript": "^4.3.2",
     "vite": "^2.6.0"
   }
