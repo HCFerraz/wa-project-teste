@@ -15,6 +15,8 @@ module.exports = {
         'main-blue-700': 'rgb(46,104,199)',
         'main-blue-800': 'rgb(23,88,192)',
         'main-blue-900': 'rgb(0, 71, 186)',
+        'primary-green': '#33a4a6',
+        'backdrop': 'rgba(0, 0, 0, .4)'
       },
       fontFamily: {
         roboto: ['"Roboto"', '"sans-serif"'],

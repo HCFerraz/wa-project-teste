@@ -10,7 +10,7 @@ import { TextField, Box, Button, FormLabel } from "@mui/material"
 import { makeStyles } from '@material-ui/styles'
 
 const validationSchema = yup.object({
-    numberOfQuestions: yup.number(),
+    numberOfQuestions: yup.number().positive(),
 })
 
 const inputStyles = makeStyles({
@@ -30,14 +30,16 @@ const boxStyles = makeStyles({
 })
 
 const HomeForm: React.FC = () => {
-    const { setNumberOfQuestions } = useAppContext()
+    const { setLoading, setNumberOfQuestions } = useAppContext()
     const history = useHistory()
     const { handleSubmit, handleChange, handleBlur, values, errors } = useFormik({
         initialValues: {
             numberOfQuestions: 0
         },
         onSubmit: ({ numberOfQuestions }) => {
-            setNumberOfQuestions(numberOfQuestions)
+            setLoading(true)
+            setNumberOfQuestions(Number(numberOfQuestions))
+            setLoading(false)
             history.push("começar")
         },
         validationSchema: validationSchema
@@ -61,7 +63,7 @@ const HomeForm: React.FC = () => {
             />
             {errors.numberOfQuestions && (
                 <div className="text-red-500 -mt-2 mb-2">
-                    Informe um número para prosseguir
+                    Informe um número positivo para prosseguir
                 </div>
             )}
             <Button size="small" variant="contained" type="submit">
