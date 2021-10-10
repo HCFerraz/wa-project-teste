@@ -10,6 +10,7 @@ import Report from "../components/Report"
 import Loader from "../components/Loader"
 import { Box } from "@mui/material"
 import ErrorHandler from '../components/ErrorHandler'
+import sanitizeHTML from "sanitize-html"
 
 const Result: React.FC = () => {
     const { APIResponse, loading, report, numberOfQuestions, currentQuestion } = useAppContext()
@@ -53,7 +54,7 @@ const Result: React.FC = () => {
                                     return (
                                         <div className="mb-8" key={`${question.difficulty} key: ${index}`}>
                                             <div className="mb-6">
-                                                <label dangerouslySetInnerHTML={{ __html: question.question }} ></label>
+                                                <label dangerouslySetInnerHTML={{ __html: sanitizeHTML(question.question) }} ></label>
                                             </div>
                                             {question.answers.map((answer, index) => {
                                                 return (

@@ -11,6 +11,8 @@ import Report from '../components/Report'
 import { Button, Box } from "@mui/material"
 import ErrorHandler from '../components/ErrorHandler'
 
+import sanitizeHTML from 'sanitize-html'
+
 interface ResultProps {
     category: string,
     type: string,
@@ -89,7 +91,7 @@ const Quiz: React.FC = () => {
                                     return (
                                         <div key={`${question.difficulty} key: ${index}`} className="mb-6">
                                             <div className="mb-6">
-                                                <label className="font-roboto" dangerouslySetInnerHTML={{ __html: question.question }} ></label>
+                                                <label className="font-roboto" dangerouslySetInnerHTML={{ __html: sanitizeHTML(question.question) }} ></label>
                                             </div>
                                             {question.answers.map((answer, index) => {
                                                 return (
