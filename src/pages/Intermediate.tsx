@@ -8,6 +8,8 @@ import QuizContainer from '../components/QuizContainer';
 import Loader from '../components/Loader'
 import { Button, Box, FormLabel } from '@mui/material';
 import { makeStyles } from '@material-ui/styles';
+import ErrorHandler from '../components/ErrorHandler'
+
 interface ResultProps {
   category: string,
   type: string,
@@ -61,7 +63,7 @@ const Intermediate: React.FC = () => {
     }
     if (advance) getQuestionsData()
   }, [advance])
-  
+
   const handleSubmit = ((e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setAdvance(true)
@@ -69,22 +71,24 @@ const Intermediate: React.FC = () => {
 
   return (
     <Fragment>
-      {loading && <Loader />}
-      <PageContainer>
-        <QuizContainer>
-          <Box className={classes.root} component="form" onSubmit={handleSubmit}>
-            <FormLabel sx={{ color: "#000", fontSize: "1.25rem" }}>Tudo pronto, vamos começar?</FormLabel>
-            <div className="flex justify-between w-44 mt-4">
-              <Button onClick={() => history.goBack()} sx={{ width: 80 }} color="error" size="small" variant="contained" type="button">
-                Cancel
-              </Button>
-              <Button sx={{ width: 80 }} size="small" variant="contained" type="submit">
-                Start
-              </Button>
-            </div>
-          </Box>
-        </QuizContainer>
-      </PageContainer>
+      <ErrorHandler>
+        {loading && <Loader />}
+        <PageContainer>
+          <QuizContainer>
+            <Box className={classes.root} component="form" onSubmit={handleSubmit}>
+              <FormLabel sx={{ color: "#000", fontSize: "1.25rem" }}>Tudo pronto, vamos começar?</FormLabel>
+              <div className="flex justify-between w-44 mt-4">
+                <Button onClick={() => history.goBack()} sx={{ width: 80 }} color="error" size="small" variant="contained" type="button">
+                  Cancel
+                </Button>
+                <Button sx={{ width: 80 }} size="small" variant="contained" type="submit">
+                  Start
+                </Button>
+              </div>
+            </Box>
+          </QuizContainer>
+        </PageContainer>
+      </ErrorHandler>
     </Fragment>
   )
 }

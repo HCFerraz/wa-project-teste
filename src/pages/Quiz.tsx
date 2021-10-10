@@ -9,6 +9,8 @@ import Option from "../components/Option"
 import Loader from "../components/Loader"
 import Report from '../components/Report'
 import { Button, Box } from "@mui/material"
+import ErrorHandler from '../components/ErrorHandler'
+
 interface ResultProps {
     category: string,
     type: string,
@@ -76,49 +78,51 @@ const Quiz: React.FC = () => {
 
     return (
         <Fragment>
-            {loading && <Loader />}
-            <PageContainer>
-                <QuizContainer>
-                    <main>
-                        <Box sx={{ height: "100%" }} component="form" onSubmit={handleSubmit}>
-                            {APIResponse.results.map((question, index) => {
-                                if (index !== (currentQuestion - 1)) return null
-                                return (
-                                    <div key={`${question.difficulty} key: ${index}`} className="mb-6">
-                                        <div className="mb-6">
-                                            <label className="font-roboto" dangerouslySetInnerHTML={{ __html: question.question }} ></label>
+            <ErrorHandler>
+                {loading && <Loader />}
+                <PageContainer>
+                    <QuizContainer>
+                        <main>
+                            <Box sx={{ height: "100%" }} component="form" onSubmit={handleSubmit}>
+                                {APIResponse.results.map((question, index) => {
+                                    if (index !== (currentQuestion - 1)) return null
+                                    return (
+                                        <div key={`${question.difficulty} key: ${index}`} className="mb-6">
+                                            <div className="mb-6">
+                                                <label className="font-roboto" dangerouslySetInnerHTML={{ __html: question.question }} ></label>
+                                            </div>
+                                            {question.answers.map((answer, index) => {
+                                                return (
+                                                    <Option
+                                                        key={`${answer} key: ${index}`}
+                                                        value={answer}
+                                                        text={answer}
+                                                        selected={values.answer === answer}
+                                                        name="answer"
+                                                        type="radio"
+                                                        onChange={handleChange}
+                                                    />
+                                                )
+                                            })}
                                         </div>
-                                        {question.answers.map((answer, index) => {
-                                            return (
-                                                <Option
-                                                    key={`${answer} key: ${index}`}
-                                                    value={answer}
-                                                    text={answer}
-                                                    selected={values.answer === answer}
-                                                    name="answer"
-                                                    type="radio"
-                                                    onChange={handleChange}
-                                                />
-                                            )
-                                        })}
-                                    </div>
-                                )
-                            })}
-                            <Button type="submit" variant="contained">
-                                {currentQuestion < numberOfQuestions && "Avançar"}
-                                {currentQuestion == numberOfQuestions && "Finalizar"}
-                            </Button>
-                        </Box>
-                    </main>
-                    <footer className="absolute bottom-4 left-4">
-                    <Report>
-                        <span>Acertos: {report.score.correctAnswers}</span>
-                        <span>Erros: {report.score.wrongAnswers}</span>
-                        <span>Total: {currentQuestion}/{numberOfQuestions}</span>
-                    </Report>
-                    </footer>
-                </QuizContainer>
-            </PageContainer >
+                                    )
+                                })}
+                                <Button type="submit" variant="contained">
+                                    {currentQuestion < numberOfQuestions && "Avançar"}
+                                    {currentQuestion == numberOfQuestions && "Finalizar"}
+                                </Button>
+                            </Box>
+                        </main>
+                        <footer className="absolute bottom-4 left-4">
+                            <Report>
+                                <span>Acertos: {report.score.correctAnswers}</span>
+                                <span>Erros: {report.score.wrongAnswers}</span>
+                                <span>Total: {currentQuestion}/{numberOfQuestions}</span>
+                            </Report>
+                        </footer>
+                    </QuizContainer>
+                </PageContainer>
+            </ErrorHandler>
         </Fragment>
     )
 }
